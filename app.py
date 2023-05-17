@@ -10,10 +10,23 @@ def kilo_to_pounds(k):
     p = k * 2.20462
     return p
 
+
+
+
 # Function to convert pounds to gallons
 def pounds_to_gallons(p):
     g = p / 6.7
-    return g
+    return round(g)
+
+@app.route('/pounds_to_gallons', methods=['POST'])
+def calculate_pounds_to_gallons():
+    data = request.get_json()
+    p = data.get('p', 0)
+    g = pounds_to_gallons(p)
+    return jsonify({'result': g})
+
+
+
 
 # Function to compute needed weight
 def needed_weight(req, r, l, c):
@@ -56,10 +69,12 @@ def solve_equations():
     r = data.get('r', 0)
     l = data.get('l', 0)
     c = data.get('c', 0)
+    p = data.get('p',0)
     a_l_num = data.get('a_l_num', 0)
     b_l_num = data.get('b_l_num', 0)
 
     # Call the functions and get the results
+    g = pounds_to_gallons(p)
     nw = needed_weight(req, r, l, c)
     ng = needed_gallons(nw)
     t = total_weight(r, l, c)
@@ -67,6 +82,7 @@ def solve_equations():
 
     # Prepare the response to be sent
     response = {
+        'pounds_to_gallons': g,
         'needed_weight': nw,
         'needed_gallons': ng,
         'total_weight': t,
