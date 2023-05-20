@@ -1,3 +1,7 @@
+# lt --port 5000
+# (Run this line then update request link on code using API to run and access local server)
+
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
