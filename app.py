@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 # Initialize a new Flask application
 app = Flask(__name__)
-CORS(app)  # This will enable CORS for all routes
+CORS(app, resources={r"/*": {"origins": "*"}})  # This will enable CORS for all routes
 
 
 # Function to convert kilogram to pounds
