@@ -54,7 +54,9 @@ def calculate_needed_weight():
     l = data.get("l", 0)
     c = data.get("c", 0)
     nw = needed_weight(req, r, l, c)
-    return jsonify({"result": nw})
+    tw = total_weight(r, l, c)
+    gallons = pounds_to_gallons(nw)
+    return jsonify({"result": nw, "weight": tw, "gallons": gallons})
 
 
 # Function to compute needed gallons
